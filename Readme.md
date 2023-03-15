@@ -175,3 +175,34 @@ Password: _
 
 mysql> _
 ```
+
+### PHP App para conectar a la BD
+
+En WebServer, crear el fichero index.php en el directorio /var/www/html. Por ejemplo, con:
+
+```
+$ sudo nano /var/www/html/index.php
+```
+Incluye el siguiente contenido:
+```php
+<?php
+$servername = "IP_Database";
+$username = "userweb";
+$password = "P4assW*rd";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully";
+?>
+```
+
+Ahora podríoas acceder, desde un navegador, a:
+
+```
+http://IP_MAQUINA/index.php
+```
