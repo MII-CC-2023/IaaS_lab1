@@ -36,28 +36,28 @@ Los pasos:
 
 2.- Instalar Apache
 
-´´´
+```
 $ sudo apt update
 $ sudo apt install apache2
-´´´
+```
 
 Para comprobar que está funcionando el servidor web:
 
-´´´
+```
 $ sudo systemctl status apache2
 ...
 Active: active (running)
 ...
-´´´
+```
 
 Ahora podrás acceder, desde un navegador, a la página por defecto con:
 
-´´´
+```
 http://IP_MAQUINA
-´´´
+```
 Para gestionar el servicio de apache:
 
-´´´
+```
 Parar
 $ sudo systemctl stop apache2
 Iniciar
@@ -70,14 +70,14 @@ Iniciar en el arranque
 $ sudo systemctl enable apache2
 No iniciar en el arranque
 $ sudo systemctl disable apache2
-´´´
+```
 
 
 3.- Instalar PHP
 
-´´´
+```
 sudo apt install php libapache2-mod-php php-mysql
-´´´ 
+``` 
 
 
 #### Instancia Database
@@ -90,50 +90,88 @@ Pasos:
 
 2.- Instalar MySQL Server
 
-´´´
+```
 $ sudo apt update
 $ sudo apt install mysql-server
-´´´
+```
 
 Ejecuta el script para realizar una instalación segura:
 
-´´´
+```
 $ sudo mysql_secure_installation
-´´´
+```
 (completa el script con las respuestas deseadas)
 
 Accede, por primera vez, de forma local como root:
 
-´´´
+```
 $ sudo mysql
 mysql>
-´´´
+```
 
 Asigna una password al usuario root:
 
-´´´
+```
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 mysql> exit
 $ mysql -u root -p
 password: _
-´´´
+```
 
 Crear un usuario MySQL con el comando:
-´´´
+```
 CREATE USER 'username'@'host' IDENTIFIED WITH authentication_plugin BY 'password';
-´´´
+```
 Por ejemplo:
 
-´´´
+```
 mysql> CREATE USER 'userweb'@'IP_WebServer' IDENTIFIED WITH authentication_plugin BY 'P4ssW*rd';
-´´´
+```
 
-Crear una Base de datos (pruebaDB):
+Crear la Base de datos (pruebaDB):
 
-´´´
+```
 mysql> show databases;
 mysql> create databsae pruebaDB;
 mysql> use pruebaDB;
 mysql> show tables;
-´´´
+```
+Asignar permisos al usuario en la base de datos con:
+```
+GRANT privileges ON database.table TO 'username'@'host';
+```
+Por ejemplo:
+```
+mysql> GRANT ALL PRIVILEGE ON pruebaDB.* TO 'usernweb'@'IP_WebServer' WITH GRANT OPTION;
+mysql> FLUSH PRIVILEGES;
+```
+Cambia la configuración en el fichero /etc/mysql/mysql.conf.d/mysqld.cnf modificando la directiva bind-address
 
+```
+# Comenta la línea:
+# bind-address = localhost
+# y añade:
+bind-address = IP_Webserver
+```
+
+Reinicia el servicio:
+
+```
+$ sudo systemctl restart mysql
+```
+Ahora, podrías acceder desde la máquima Webserver a MySQL. Para comprobarlo, puedes instalar el cliente MySQL en WebServer:
+
+```
+$ sudo apt update
+$ sudo apt install mysql-client
+```
+Y ejecutar el siguiente comando:
+
+```
+$ mysql -u userweb -h IP_Database -p
+Password: _
+
+...
+
+mysql> _
+```
