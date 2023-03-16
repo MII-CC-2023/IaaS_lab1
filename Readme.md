@@ -132,7 +132,7 @@ Crear la Base de datos (pruebaDB):
 
 ```
 mysql> show databases;
-mysql> create databsae pruebaDB;
+mysql> create database pruebaDB;
 mysql> use pruebaDB;
 mysql> show tables;
 ```
@@ -142,7 +142,7 @@ GRANT privileges ON database.table TO 'username'@'host';
 ```
 Por ejemplo:
 ```
-mysql> GRANT ALL PRIVILEGE ON pruebaDB.* TO 'usernweb'@'IP_WebServer' WITH GRANT OPTION;
+mysql> GRANT ALL PRIVILEGE ON pruebaDB.* TO 'userweb'@'IP_WebServer' WITH GRANT OPTION;
 mysql> FLUSH PRIVILEGES;
 ```
 Cambia la configuración en el fichero /etc/mysql/mysql.conf.d/mysqld.cnf modificando la directiva bind-address
@@ -151,7 +151,7 @@ Cambia la configuración en el fichero /etc/mysql/mysql.conf.d/mysqld.cnf modifi
 # Comenta la línea:
 # bind-address = localhost
 # y añade:
-bind-address = IP_Webserver
+bind-address = 0.0.0.0
 ```
 
 Reinicia el servicio:
@@ -188,7 +188,7 @@ Incluye el siguiente contenido:
 <?php
 $servername = "IP_Database";
 $username = "userweb";
-$password = "P4assW*rd";
+$password = "P4ssW*rd";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
