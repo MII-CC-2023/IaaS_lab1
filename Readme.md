@@ -186,9 +186,14 @@ $ sudo nano /var/www/html/index.php
 Incluye el siguiente contenido:
 ```php
 <?php
-$servername = "IP_Database";
-$username = "userweb";
-$password = "P4ssW*rd";
+// Nunca expongas tus claves en el código fuente
+// declara las variables de entorno siguientes con los
+// valores adecuados
+$servername = $_ENV["HOST"] ;
+$username = $_ENV["USER"] ;
+$password = $_ENV["PASS"] ;
+// Nunca expongas tus claves en el código fuente
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
