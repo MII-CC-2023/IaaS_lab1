@@ -187,8 +187,7 @@ Incluye el siguiente contenido:
 ```php
 <?php
 // Nunca expongas tus claves en el código fuente
-// declara las variables de entorno siguientes con los
-// valores adecuados
+// declara variables de entorno con los valores adecuados
 $servername = $_ENV["HOST"] ;
 $username = $_ENV["USER"] ;
 $password = $_ENV["PASS"] ;
